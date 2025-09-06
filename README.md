@@ -30,7 +30,6 @@ The system includes a **Kanban Board with drag-and-drop support**, time tracking
 - **Hello Pangea DnD** – Drag & Drop Kanban board  
 - **Recharts** – Charts & analytics  
 
-
 ### Backend (Spring Boot)
 - **Spring Boot** – REST API & business logic  
 - **Spring Security + JWT** – Authentication & authorization  
@@ -42,7 +41,7 @@ The system includes a **Kanban Board with drag-and-drop support**, time tracking
   
 ---
 
-## 🔧 Setup Frontend (React)
+## 🔧 Frontend Setup (React)
 
 ### Navigate to the frontend folder:
 cd frontend
@@ -73,10 +72,24 @@ npm run build
 CREATE DATABASE tasktrack;
 ### Run the Spring Boot application using Maven:
 mvn spring-boot:run
-### The backend will start at http://localhost:8080
 
-### 📸 Screenshots
- (Coming soon)
-### 📜 License
+The backend will start at http://localhost:8080
+
+---
+
+## 📸 Screenshots
+Manager Dashboard with Kanban Board overview
+<img width="1920" height="1080" alt="Screenshot 2025-09-06 112807" src="https://github.com/user-attachments/assets/0df40b20-5fae-4497-95f4-f7656a280a8a" />
+
+Creating new task
+<img width="1920" height="1080" alt="Screenshot 2025-09-06 112853" src="https://github.com/user-attachments/assets/a3bb2adb-13bb-4954-bbca-ddb60243804e" />
+
+Reports overview
+<img width="1920" height="813" alt="Screenshot 2025-09-06 112927" src="https://github.com/user-attachments/assets/daf9a29c-8d5e-454c-9b38-af92c3593898" />
+
+Employee Dashboard overview
+<img width="1920" height="1080" alt="Screenshot 2025-09-06 112949" src="https://github.com/user-attachments/assets/bd53baf3-b7ac-46ff-b62c-d24982baf096" />
+
+## 📜 License
 
 This project is licensed under the MIT License.
