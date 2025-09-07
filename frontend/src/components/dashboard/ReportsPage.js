@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import TaskStatusChart from "../charts/TaskStatusChart";
-
+import TimeLoggedChart from "../charts/TimeLoggedChart";
+import TimePerEmployeeChart from "../charts/TimePerEmployeeChart";
 import { getAllTasks } from "../../services/taskService";
 import { getAllProjects } from "../../services/projectService";
-import Header from "../general/ManagerHeader";
 import { getAllTimeLogs } from "../../services/timeLogService";
 import { getAllUsers } from "../../services/userService";
+import Header from "../general/ManagerHeader";
+import TasksPerEmployeeChart from "../charts/TasksPerEmployeeChart";
 
 const ReportsPage = () => {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [timeLogs, setTimeLogs] = useState([]);
   const [employees, setEmployees] = useState([]);
-  
+  const [selectedChart, setSelectedChart] = useState("taskStatus");
+
   useEffect(() => {
     const fetchData = async () => {
       const taskRes = await getAllTasks();
@@ -20,116 +23,116 @@ const ReportsPage = () => {
       const logRes = await getAllTimeLogs();
       const userRes = await getAllUsers();
 
-       // Log the first time log for inspection
-    console.log("Sample TimeLog:", logRes.data[0]);
-    
       setTasks(taskRes.data);
       setProjects(projectRes.data);
       setTimeLogs(logRes.data);
       setEmployees(userRes.data.filter((u) => u.role === "EMPLOYEE"));
-      console.log("TimeLogs:", timeLogs);
     };
     fetchData();
   }, []);
 
-  // calculate values
-    const totalProjects = projects.length;
-    const totalTasks = tasks.length;
-    const totalEmployees = employees.length;
-    const totalMinutes = timeLogs.reduce((sum, log) => sum + (log.duration || 0), 0);
-    const totalHours = Math.round(totalMinutes / 60);
+  // 📊 summary values
+  const totalProjects = projects.length;
+  const totalTasks = tasks.length;
+  const totalEmployees = employees.length;
+  const totalMinutes = timeLogs.reduce((sum, log) => sum + (log.duration || 0), 0);
+  const totalHours = Math.round(totalMinutes / 60);
 
-    const timePerEmployee = employees.map((emp) => {
-  const empLogs = timeLogs.filter((log) => {
-    const task = tasks.find((t) => t._id === log.taskId);
-    return task?.assignedTo === emp._id;
-  });
-  const total = empLogs.reduce((sum, log) => sum + (log.duration || 0), 0);
-  return { name: emp.name, minutes: total };
-});
-
-const timePerProject = projects.map((proj) => {
-  // Get all tasks that belong to this project
-  const projectTasks = tasks.filter((t) => t.projectId === proj._id).map((t) => t._id);
-
-  // Get all time logs for those tasks
-  const projLogs = timeLogs.filter((log) => projectTasks.includes(log.taskId));
-
-  // Sum durations
-  const total = projLogs.reduce((sum, log) => sum + (log.duration || 0), 0);
-
-  return { name: proj.name, minutes: total };
-});
-
-
-    
-    const ProgressBar = ({ label, value, max }) => {
-  const percentage = max > 0 ? Math.round((value / max) * 100) : 0;
-  return (
-    <div style={{ marginBottom: "10px" }}>
-      <strong>{label}</strong>
-      <div style={{
-        background: "#eee",
-        borderRadius: "4px",
-        overflow: "hidden",
-        height: "20px",
-        marginTop: "4px"
-      }}>
-        <div style={{
-          width: `${percentage}%`,
-          background: "#2196f3",
-          height: "100%",
-          transition: "width 0.3s ease"
-        }} />
-      </div>
-      <small>{value} minutes</small>
-    </div>
-  );
-};
-
+  // fixed chart container height
+  const chartContainerHeight = 400;
 
   return (
     <div className="main-container">
-      <Header />  
+      <Header />
       <h1>Reports & Analytics</h1>
-      <div className="full-container">  
+      <div className="full-container">
+        {/* 🔹 System Summary */}
         <div className="summary-box">
-            <h3>📊 System Summary</h3>
-            <ul>
-                <li>📁 Total Projects: {totalProjects}</li>
-                <li>✅ Total Tasks: {totalTasks}</li>
-                <li>👥 Total Employees: {totalEmployees}</li>
-                <li>⏱️ Total Time Logged: {totalHours} hours</li>
-            </ul>
-        </div> 
-         <div className="charts-board">  
-             <TaskStatusChart tasks={tasks} />
-        <div>
-                <div className="progress-section">
-  <h3>⏱️ Time Logged per Employee</h3>
-  {timePerEmployee.map((emp) => (
-    <ProgressBar
-      key={emp.name}
-      label={emp.name}
-      value={emp.minutes}
-      max={totalMinutes}
-    />
-  ))}
-
-  <h3>🏗️ Time Logged per Project</h3>
-  {timePerProject.map((proj) => (
-    <ProgressBar
-      key={proj.name}
-      label={proj.name}
-      value={proj.minutes}
-      max={totalMinutes}
-    />
-  ))}
-</div>
-
-          </div>     
+          <h3>📊 System Summary</h3>
+          <ul>
+            <li>📁 Total Projects: {totalProjects}</li>
+            <li>✅ Total Tasks: {totalTasks}</li>
+            <li>👥 Total Employees: {totalEmployees}</li>
+            <li>⏱️ Total Time Logged: {totalHours} hours</li>
+          </ul>
         </div>
-        
+
+        {/* 🔹 Charts Section */}
+        <div className="charts-board">
+          {/* 🔹 Chart Toggle Buttons */}
+          <div className="chart-toggle-buttons" style={{ marginBottom: "16px" }}>
+            <button
+              onClick={() => setSelectedChart("taskStatus")}
+              style={{
+                padding: "10px 25px",
+                marginRight: "8px",
+                background: selectedChart === "taskStatus" ? "#000" : "#fff",
+                color: selectedChart === "taskStatus" ? "#fff" : "#000",
+                border: "none",
+                borderRadius: "25px",
+                cursor: "pointer",
+              }}
+            >
+              Task Status Overview
+            </button>
+            <button
+              onClick={() => setSelectedChart("timeLogged")}
+              style={{
+                padding: "10px 25px",
+                marginRight: "8px",
+                background: selectedChart === "timeLogged" ? "#000" : "#fff",
+                color: selectedChart === "timeLogged" ? "#fff" : "#000",
+                border: "none",
+                borderRadius: "25px",
+                cursor: "pointer",
+              }}
+            >
+              Time Logged Per Project
+            </button>
+            <button
+              onClick={() => setSelectedChart("timePerEmployee")}
+              style={{
+                padding: "10px 25px",
+                background: selectedChart === "timePerEmployee" ? "#000" : "#fff",
+                color: selectedChart === "timePerEmployee" ? "#fff" : "#000",
+                border: "none",
+                borderRadius: "25px",
+                cursor: "pointer",
+              }}
+            >
+              Time Logged Per Employee
+            </button>
+            <button
+              onClick={() => setSelectedChart("tasksPerEmployee")}
+              style={{
+                padding: "10px 25px",
+                marginRight: "8px",
+                background: selectedChart === "tasksPerEmployee" ? "#000" : "#fff",
+                color: selectedChart === "tasksPerEmployee" ? "#fff" : "#000",
+                border: "none",
+                borderRadius: "25px",
+                cursor: "pointer",
+              }}
+            >
+              Tasks Per Employee
+            </button>
+
+
+          </div>
+
+          {/* 🔹 Chart Containers */}
+          <div style={{ height: chartContainerHeight }}>
+            {selectedChart === "taskStatus" && <TaskStatusChart tasks={tasks} />}
+            {selectedChart === "timeLogged" && <TimeLoggedChart projects={projects} />}
+            {selectedChart === "timePerEmployee" && (
+              <TimePerEmployeeChart employees={employees} timeLogs={timeLogs} />
+            )}
+            {selectedChart === "tasksPerEmployee" && (
+              <TasksPerEmployeeChart employees={employees} tasks={tasks} />
+            )}
+
+          </div>
+        </div>
       </div>
     </div>
   );

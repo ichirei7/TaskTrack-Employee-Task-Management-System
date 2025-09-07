@@ -65,5 +65,8 @@ public class TimeLogService {
     public Integer getTotalDurationByTask(Long taskId) {
         return timeLogRepository.getTotalDurationByTask(taskId);
     }
+    public Integer getTotalDurationByProject(Long projectId) {
+        return timeLogRepository.getTotalDurationByProject(projectId);
+    }
 
 }

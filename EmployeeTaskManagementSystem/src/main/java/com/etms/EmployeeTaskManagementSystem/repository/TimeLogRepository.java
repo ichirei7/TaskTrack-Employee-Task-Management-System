@@ -13,4 +13,8 @@ public interface TimeLogRepository extends JpaRepository<TimeLog, Long> {
     // to calculate total duration in minutes for a task
     @Query("SELECT SUM(t.duration) FROM TimeLog t WHERE t.task.id = :taskId")
     Integer getTotalDurationByTask(@Param("taskId") Long taskId);
+    
+    @Query("SELECT COALESCE(SUM(t.duration), 0) FROM TimeLog t WHERE t.task.project.id = :projectId")
+    Integer getTotalDurationByProject(Long projectId);
+
 }

@@ -65,5 +65,9 @@ public class TimeLogController {
         Integer total = timeLogService.getTotalDurationByTask(taskId);
         return ResponseEntity.ok(total != null ? total : 0);
     }
+    @GetMapping("/project/{projectId}/total")
+    public ResponseEntity<Integer> getTotalDurationByProject(@PathVariable Long projectId) {
+        return ResponseEntity.ok(timeLogService.getTotalDurationByProject(projectId));
+    }
 
 }

@@ -9,8 +9,9 @@ export const startTimer = (taskId, userId) =>
   API.post('/api/timelogs/start', null, {
     params: { taskId, userId },
   });
-
 export const stopTimer = (logId) =>
   API.put(`/api/timelogs/${logId}/stop`);
 export const getTotalDurationByTask = (taskId) =>
   API.get(`/api/timelogs/task/${taskId}/total`);
+export const getTotalDurationByProject = (projectId) =>
+  API.get(`/api/timelogs/project/${projectId}/total`);
