@@ -25,8 +25,6 @@ The system includes a **Kanban Board with drag-and-drop support**, time tracking
 - **React Router DOM** – Routing  
 - **Axios** – API requests  
 - **JWT Decode** – Token-based authentication  
-- **Material UI (MUI)** – UI components & icons  
-- **Emotion** – Styling (CSS-in-JS)  
 - **Hello Pangea DnD** – Drag & Drop Kanban board  
 - **Recharts** – Charts & analytics  
 
@@ -85,7 +83,11 @@ Creating new task
 <img width="1920" height="1080" alt="Screenshot 2025-09-06 112853" src="https://github.com/user-attachments/assets/a3bb2adb-13bb-4954-bbca-ddb60243804e" />
 
 Reports overview
-<img width="1920" height="813" alt="Screenshot 2025-09-06 112927" src="https://github.com/user-attachments/assets/daf9a29c-8d5e-454c-9b38-af92c3593898" />
+<img width="1920" height="1080" alt="Screenshot 2025-09-07 172153" src="https://github.com/user-attachments/assets/b8526fc1-c754-4296-84e5-0fdc9425c8da" />
+<img width="1919" height="860" alt="Screenshot 2025-09-07 173106" src="https://github.com/user-attachments/assets/2309fbbd-7e81-42fb-a54b-4a22547fe5a4" />
+<img width="1916" height="629" alt="Screenshot 2025-09-07 173110" src="https://github.com/user-attachments/assets/6dca3ea9-2217-40d3-a012-9b961047d35e" />
+<img width="1919" height="614" alt="Screenshot 2025-09-07 173115" src="https://github.com/user-attachments/assets/c445f052-77ae-4c64-a005-ba7a6854dc87" />
+
 
 Employee Dashboard overview
 <img width="1920" height="1080" alt="Screenshot 2025-09-06 112949" src="https://github.com/user-attachments/assets/bd53baf3-b7ac-46ff-b62c-d24982baf096" />
