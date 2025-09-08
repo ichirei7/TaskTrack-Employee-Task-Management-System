@@ -52,12 +52,12 @@ const EmployeeDashboard = () => {
       <div className="welcome-bar">Hi {username}</div>
       <div className="project-task-overview">
         <div className="project-task-overview-left">
-        <TaskStatusChart tasks={tasks} />
-        </div>
-        <div className="project-task-overview-right">
-                    
-           {/* Pass userId so KanBanBoard can filter tasks for this employee */}
-           <KanBanBoard projectId={null} userId={userId} isManager={false} />
+         {/* shows task overview chart for personal tasks */}
+         <TaskStatusChart tasks={tasks} />
+         </div>
+        <div className="project-task-overview-right">                
+         {/* Pass userId so KanBanBoard can filter tasks for this employee */}
+         <KanBanBoard projectId={null} userId={userId} isManager={false} />
       
         </div>
       </div>

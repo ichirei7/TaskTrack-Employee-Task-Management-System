@@ -9,6 +9,8 @@ import { setAuthToken } from './services/api';
 import Unauthorized from './pages/Unauthorized';
 import NotFoundPage from './pages/NotFoundPage';
 import ReportsPage from "./components/dashboard/ReportsPage";
+import ForgotPasswordForm from './components/auth/ForgotPasswordForm.js';
+import ResetPasswordForm from './components/auth/ResetPasswordForm.js';
 
 const token = localStorage.getItem('token');
 setAuthToken(token);
@@ -26,7 +28,8 @@ function App() {
          <Route path="/unauthorized" element={<Unauthorized />} />
          <Route path="/*" element={<NotFoundPage />} />
          <Route path="/manager/reports" element={<ReportsPage />} />
-
+         <Route path="/forgot-password" element={<ForgotPasswordForm />} /> {/*routing for demo*/}
+         <Route path="/reset-password" element={<ResetPasswordForm />} /> {/*routing for demo*/}
       </Routes>
       </div>
     </Router>

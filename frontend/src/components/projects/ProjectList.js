@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getAllProjects } from "../../services/projectService";
 
 const ProjectList = ({ projects,onSelectProject, onDeleteProject, onUpdateProject }) => {
   

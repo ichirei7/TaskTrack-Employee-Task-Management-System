@@ -17,6 +17,11 @@ hr {
 textarea {
   min-height:50px;
 }
+form {
+  max-width: 450px;
+  float:none;
+  margin: auto;
+}
 button {
   margin: 10px 5px 8px 5px;
   border-radius: 25px;

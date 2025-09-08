@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import KanBanBoard from '../tasks/KanBanBoard';
 import { getAllProjects, createProject, updateProject, deleteProject } from '../../services/projectService';
 import ProjectList from '../projects/ProjectList';
-import { setAuthToken } from '../../services/api';
 import { jwtDecode } from "jwt-decode"; 
 import ManagerHeader from '../general/ManagerHeader';
 

@@ -2,13 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getTotalDurationByTask } from "../../services/timeLogService";
 
-const TaskCard = ({ task, onEdit, onDelete, onStartTimer, onStopTimer, timerRunningTaskId }) => {
+const TaskCard = ({ refreshTrigger, task, onEdit, onDelete, onStartTimer, onStopTimer, timerRunningTaskId }) => {
     const [totalMinutes, setTotalMinutes] = useState(0);
-    const [activeLogId, setActiveLogId] = useState(null);
-    const [timerRunning, setTimerRunning] = useState(false);
-
     const currentUser = JSON.parse(localStorage.getItem("user"));
 
+    // loop colors for project badge
     const projectColors = [
       "#ffe5f9ff", // 1
       "#e5ffd3ff", // 2
@@ -67,7 +65,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStartTimer, onStopTimer, timerRunn
         }
       };
       fetchTotal();
-    }, [task.id]);
+    }, [task.id, refreshTrigger]);
 
     return (
       <div className={`task-card ${isOverdue ? "overdue" : ""}`}>

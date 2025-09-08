@@ -18,6 +18,10 @@ import { getAllUsers } from "../../services/userService";
 const KanBanBoard = ({ projectId, setSelectedProject, userId, isManager = true }) => {
   
   const [sortBy, setSortBy] = useState("dueDate"); // default sort
+  const [refreshKey, setRefreshKey] = useState(0);
+
+
+
 
   const getCurrentUserId = () => {
   const token = localStorage.getItem("token");
@@ -228,6 +232,7 @@ const grouped = groupTasks(sortTasks(tasks));
       setActiveLogId(null);
       setTimerRunningTaskId(null);
       fetchTasks(); // refresh task list
+      setRefreshKey(prev => prev + 1); // triggers re-fetch in TaskCard
     } catch (err) {
       console.error("Error stopping timer:", err);
     }
@@ -470,6 +475,7 @@ const grouped = groupTasks(sortTasks(tasks));
                             onStartTimer={handleStartTimer}
                             onStopTimer={handleStopTimer}
                             timerRunningTaskId={timerRunningTaskId}
+                            refreshTrigger={refreshKey}
                           />
                         </div>
                       )}

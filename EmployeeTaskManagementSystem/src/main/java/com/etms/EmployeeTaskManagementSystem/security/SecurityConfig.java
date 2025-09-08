@@ -43,7 +43,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
             	 .requestMatchers("/**").permitAll()   // allow everything	FOR DEVELOPMENT ONLY
-//                .requestMatchers("/auth/login", "/auth/register").permitAll() //enable this back after DEV
+//                .requestMatchers("/auth/login", "/auth/register",
+//                 "/auth/forgot-password", "/auth/reset-password").permitAll() //enable this back after DEV
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
             )

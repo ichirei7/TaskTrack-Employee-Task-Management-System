@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { handleLogout } from "../../utils/authUtils";
+import { useNavigate } from "react-router-dom";
 
 export default function ManagerHeader() {
   const [menuActive, setMenuActive] = useState(false);
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
-
+  const navigate = useNavigate();
   const toggleMenu = () => setMenuActive((prev) => !prev);
 
   useEffect(() => {
@@ -67,9 +69,15 @@ export default function ManagerHeader() {
               </Link>
             </li>
             <li>
-              <Link to="/" onClick={handleLinkClick}>
+               <a
+                onClick={() => {
+                  handleLogout(navigate);
+                  handleLinkClick(); // closes menu
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 Logout
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>
