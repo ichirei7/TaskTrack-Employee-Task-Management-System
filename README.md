@@ -65,7 +65,10 @@ npm run build
 
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true
+
 ```
+Note: Static secret key is used for development, to move it to an environment variable during production
+
 ### Make sure MySQL is running and a database named tasktrack exists:
 CREATE DATABASE tasktrack;
 ### Run the Spring Boot application using Maven:
